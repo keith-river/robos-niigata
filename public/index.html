@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>ロボ箱庭ツボすごろく 新潟</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- three.js は public/vendor/three に同梱（CDN なし） -->
+    <script type="importmap">
+      { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/" } }
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/data/niigata.js"></script>
+    <script src="/data/roles.js"></script>
+    <script src="/data/tools.js"></script>
+  </head>
+  <body>
+    <canvas id="stage"></canvas>
+
+    <header class="top">
+      <h1><span class="logo">🤖</span>ロボ箱庭ツボすごろく<small>新潟</small></h1>
+      <div id="badge" class="badge">接続中…</div>
+      <button id="btn-log" class="icon-btn" title="ログ" aria-label="ログ">📜</button>
+    </header>
+
+    <!-- ロビー -->
+    <section id="lobby" class="panel center-panel hidden">
+      <h2>ステークホルダーのロボットを選ぼう</h2>
+      <p class="lead">新潟県の30市町村が石畳になった箱庭に、最大4体のロボットが降り立ちます。数回の移動で半径3以内に集まり、その立ち位置が「複合課題」のお題になります。</p>
+      <label class="field">名前 <input id="name" maxlength="12" placeholder="ロボの名前" /></label>
+      <div id="roles" class="roles"></div>
+      <div class="row">
+        <span class="muted">石の課題：</span>
+        <button id="as-real" class="seg">初期設定</button><button id="as-rand" class="seg">ランダム</button>
+        <span class="muted small">※初期設定は地域の実情をもとにした仮の割り当てです</span>
+      </div>
+      <div id="plist" class="plist"></div>
+      <div class="row">
+        <button id="add-bot" class="btn ghost">＋ CPUを追加</button>
+        <button id="del-bot" class="btn ghost">－ CPUを減らす</button>
+        <button id="start" class="btn primary">ゲーム開始</button>
+      </div>
+      <p id="lobby-note" class="muted small"></p>
+    </section>
+
+    <!-- 集合フェーズのHUD -->
+    <section id="hud" class="hud hidden">
+      <div id="hud-main"></div>
+      <div id="hud-opts" class="opts"></div>
+    </section>
+
+    <!-- お題カード -->
+    <section id="theme" class="panel center-panel hidden"></section>
+
+    <!-- 討論パネル -->
+    <aside id="debate" class="side hidden"></aside>
+
+    <!-- 結果 -->
+    <section id="result" class="panel center-panel hidden"></section>
+
+    <!-- ログ -->
+    <aside id="log" class="logbox hidden"><h3>ログ</h3><ol id="log-list"></ol></aside>
+    <div id="toast" class="toast hidden"></div>
+
+    <footer class="foot">3D箱庭は模式図です。役割・課題の割り当て・カードは議論のための仮置きで、実在の個人・団体とは関係ありません。</footer>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
